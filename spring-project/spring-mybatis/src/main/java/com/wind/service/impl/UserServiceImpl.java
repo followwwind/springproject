@@ -5,20 +5,17 @@ package com.wind.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.wind.dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.wind.entity.User;
 import com.wind.service.UserService;
 
 @Service
-@Transactional
+//@Transactional
 public class UserServiceImpl implements UserService{
-	
-	@Resource
+
+	@Autowired
 	UserDao userDao;
 
 	@Override

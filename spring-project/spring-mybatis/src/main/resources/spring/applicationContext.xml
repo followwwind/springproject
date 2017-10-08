@@ -71,7 +71,7 @@
 
 	<!-- 扫描指定包下所有的接口 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com/mysm/dao" />
+		<property name="basePackage" value="com/wind/dao" />
 		<!-- 自动注入sqlSessionFactory -->
 	</bean>
 </beans>

@@ -3,7 +3,6 @@ package com.wind.bootsample.service;
 import com.wind.bootsample.BootSampleApplication;
 import com.wind.bootsample.dao.UserInfoDao;
 import com.wind.bootsample.entity.UserInfo;
-import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

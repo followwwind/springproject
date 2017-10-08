@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS mysm.user;
-CREATE TABLE mysm.`user` (
+DROP TABLE IF EXISTS follow.user;
+CREATE TABLE follow.`user` (
   `id` varchar(16) CHARACTER SET latin1 NOT NULL COMMENT '用户ID',
   `username` varchar(45) CHARACTER SET latin1 NOT NULL COMMENT '账号',
   `password` varchar(45) CHARACTER SET latin1 DEFAULT NULL COMMENT '密码',
