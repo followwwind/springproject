@@ -15,4 +15,21 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+management:
+  security:
+    enabled: true
+    roles: ADMIN
+  context-path: /manage
+  port: 10001
+security:
+  user:
+    password: 123456
+    name: admin
+info:
+  app:
+    name: boot-sample
+    version: 1.0
+logging:
+  path: E://log
+
 
