@@ -1,9 +1,8 @@
 package com.wind.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.wind.entity.User;
+
+import java.util.List;
 
 public interface UserService {
 	/**

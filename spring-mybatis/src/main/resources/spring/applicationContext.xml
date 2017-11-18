@@ -22,7 +22,7 @@
 	 <import resource="spring-task.xml"/>
 	 
 	 <!-- 配置Spring采用CGLIB代理 -->
-	 <context:component-scan base-package="com.wind"></context:component-scan>
+	<context:component-scan base-package="com.wind"/>
 	 
 	 <!-- 启用对事务注解的支持 -->
 	 <aop:aspectj-autoproxy />
@@ -49,7 +49,7 @@
 	</bean>
 	 
 	<!-- 数据源 连接mysql数据库-->
-	<bean id="dataSource" class="${jdbc.dataSource}">
+	<bean id="dataSource" class="${jdbc.dataSource}" destroy-method="close">
 		<property name="url"
 			value="${jdbc.url}" />
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -59,19 +59,18 @@
 
 	<!-- session工厂 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource">
-		</property>
-		<property name="mapperLocations" value="classpath:mapper/UserMapper.xml">
-		</property>
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:mapper/*.xml"/>
 	</bean>
-	
-	<!-- 事务开启 -->  
-    <tx:annotation-driven transaction-manager="transactionManager"/>  
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:dataSource-ref="dataSource"/>  
+
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:dataSource-ref="dataSource"/>
+	<!-- 事务开启 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+
 
 	<!-- 扫描指定包下所有的接口 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com/wind/dao" />
+		<property name="basePackage" value="com.wind.dao" />
 		<!-- 自动注入sqlSessionFactory -->
 	</bean>
 </beans>

@@ -3,13 +3,13 @@ package com.wind.entity;
 import java.util.List;
 /**
  * citys.xml配置文件中对应的实体类
- * @author followwwind
+ * @author wind
  *
  */
 public class Provience {
 	
-	String name;
-	List<String> items;
+	private String name;
+	private List<String> items;
 	public String getName() {
 		return name;
 	}

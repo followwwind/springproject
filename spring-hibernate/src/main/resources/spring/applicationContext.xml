@@ -1,0 +1,126 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+  xsi:schemaLocation="
+  	 http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-4.1.xsd
+     http://www.springframework.org/schema/mvc
+     http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+     http://www.springframework.org/schema/cache 
+     http://www.springframework.org/schema/cache/spring-cache-4.1.xsd
+     http://www.springframework.org/schema/task 
+     http://www.springframework.org/schema/task/spring-task-4.1.xsd">
+     
+	 <import resource="spring-task.xml"/>
+	 
+	 <!-- 配置Spring采用CGLIB代理 -->
+	 <context:component-scan base-package="com.wind"/>
+	 
+	 <mvc:annotation-driven>
+	 	<mvc:message-converters>
+	 		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	 			<property name="supportedMediaTypes">
+	 				<list>
+	 					<value>application/json;charset=UTF-8</value>
+	 				</list>
+	 			</property>
+	 		</bean>
+	 	</mvc:message-converters>
+	 </mvc:annotation-driven>
+	 
+	 <!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->
+	 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		 <property name="locations"> 
+			<array> 
+			 	<value>classpath:application.properties</value> 
+			</array> 
+		 </property> 
+	</bean>
+	 
+	<!-- 数据源 连接mysql数据库-->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="jdbcUrl"
+			value="${jdbc.url}" />
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 请求超时时间 -->
+		<property name="checkoutTimeout" value="${jdbc.c3p0.checkoutTimeout}" />
+		<!-- 每60秒检查所有连接池中的空闲连接。默认值: 0，不检查 -->
+		<property name="idleConnectionTestPeriod" value="${jdbc.c3p0.idleConnectionTestPeriod}" />
+		<!-- 连接数据库连接池最大空闲时间 -->
+		<property name="maxIdleTime" value="${jdbc.c3p0.maxIdleTime}" />
+		<!-- 连接池初始化连接数 -->
+		<property name="initialPoolSize" value="${jdbc.c3p0.initialPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.c3p0.maxPoolSize}" />
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。默认值: 3 -->
+		<property name="acquireIncrement" value="${jdbc.c3p0.acquireIncrement}" />
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- hibernate配置信息 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<!-- 开启二级缓存 ehcache -->
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+				<prop key="hibernate.cache.provider_configuration_file_resource_path">${hibernate.cache.provider_configuration_file_resource_path}
+				</prop>
+			</props>
+		</property>
+		<!-- 扫描hibernate注解配置的entity -->
+		<property name="packagesToScan" value="com.wind.entity" />
+	</bean>
+
+	<!-- 配置Hibernate事务管理器 -->
+	<bean id="tx"
+		  class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 配置事务增强处理Bean，指定事务管理器 -->
+	<tx:advice id="transactionAdvice" transaction-manager="tx">
+		<!-- 配置详细事务处理语义 -->
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="load*" propagation="SUPPORTS" read-only="true" />
+			<!-- 其他采用默认事务方式 -->
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 启用对事务注解的支持 -->
+	<aop:aspectj-autoproxy />
+	<!-- Spring aop事务管理 -->
+	<!--<aop:config>
+		&lt;!&ndash; 配置切入点 &ndash;&gt;
+		<aop:pointcut id="transactionPointcut"
+					  expression="execution(* com.wind.service.*.*(..))"  />
+		&lt;!&ndash; 指定在txAdvice切入点应用txAdvice事务增强处理 &ndash;&gt;
+		<aop:advisor pointcut-ref="transactionPointcut"    advice-ref="transactionAdvice" />
+	</aop:config>-->
+
+</beans>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <diskStore path="/data/ehcache"/>
+
+    <!-- 默认的Cache配置。用来实现CacheManager.add(String cacheName)创建的缓存 -->
+    <defaultCache
+            maxElementsInMemory="10000" eternal="false"
+            timeToIdleSeconds="120" timeToLiveSeconds="120"
+            overflowToDisk="true" maxElementsOnDisk="1000000"
+            diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+    />
+</ehcache>
