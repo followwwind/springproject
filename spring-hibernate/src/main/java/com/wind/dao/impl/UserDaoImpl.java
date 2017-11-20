@@ -3,31 +3,30 @@ package com.wind.dao.impl;
 import com.wind.dao.UserDao;
 import com.wind.entity.User;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
-@Transactional
+/*@Transactional*/
 public class UserDaoImpl implements UserDao{
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private HibernateTemplate hibernateTemplate;
 
     @Override
     public void insert(User user) {
-
+        hibernateTemplate.save(user);
     }
 
     @Override
     public User selectByPrimaryKey(String userId) {
-        String hql = "from User u where u.userId=?";
-        Query query = sessionFactory.openSession().createQuery(hql);
-        query.setString(0, userId);
-        return (User)query.uniqueResult();
+        return hibernateTemplate.get(User.class, userId);
     }
 
     @Override
@@ -37,11 +36,15 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public int deleteByPrimaryKey(String userId) {
+        User user = new User();
+        user.setUserId(userId);
+        hibernateTemplate.delete(user);
         return 0;
     }
 
     @Override
     public int updateByPrimaryKeySelective(User user) {
+        hibernateTemplate.update(user);
         return 0;
     }
 

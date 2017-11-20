@@ -20,7 +20,7 @@ public class UserServiceTest {
 	@Test
 	public void testInsert() {
 		User user = new User();
-		user.setUserId("12321421");
+		user.setUserId("1510825164758");
 		user.setUsername("follow");
 		user.setPassword("123");
 		user.setEmail("18771933975@163.com");
@@ -54,8 +54,8 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateByPrimaryKeySelective() {
 		User user = new User();
-		user.setUserId("1510821374853");
-		user.setAge(18);
+		user.setUserId("1510825164757");
+		user.setAge(21);
 		userService.updateByPrimaryKeySelective(user);
 	}
 

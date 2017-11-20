@@ -24,7 +24,7 @@
 	 <!-- 配置Spring采用CGLIB代理 -->
 	<context:component-scan base-package="com.wind"/>
 	 
-	 <!-- 启用对事务注解的支持 -->
+	 <!-- 启用对aop注解的支持 -->
 	 <aop:aspectj-autoproxy />
 	 
 	 <mvc:annotation-driven>
@@ -73,4 +73,6 @@
 		<property name="basePackage" value="com.wind.dao" />
 		<!-- 自动注入sqlSessionFactory -->
 	</bean>
+
+
 </beans>

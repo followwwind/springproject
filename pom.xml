@@ -9,6 +9,7 @@
   <modules>
     <module>spring-mybatis</module>
       <module>spring-hibernate</module>
+      <module>spring-redis</module>
   </modules>
 
   <packaging>pom</packaging>

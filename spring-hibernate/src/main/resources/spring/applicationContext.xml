@@ -46,7 +46,7 @@
 	</bean>
 	 
 	<!-- 数据源 连接mysql数据库-->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="dataSource" class="${jdbc.dataSource}">
 		<property name="jdbcUrl"
 			value="${jdbc.url}" />
 		<property name="driverClass" value="${jdbc.driverClassName}" />
@@ -76,6 +76,8 @@
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<!-- 是否使用注释  -->
+				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				<!-- 开启二级缓存 ehcache -->
@@ -87,8 +89,27 @@
 			</props>
 		</property>
 		<!-- 扫描hibernate注解配置的entity -->
-		<property name="packagesToScan" value="com.wind.entity" />
+		<!--<property name="annotatedClasses">
+			<list>
+				<value>com.wind.entity.User</value>
+			</list>
+		</property>-->
+		<!--<property name="packagesToScan" value="com.wind.entity" />-->
+		<property name="mappingLocations">
+			<value>classpath:hbm/*.hbm.xml </value>
+		</property>
 	</bean>
+
+	<!-- 使用spring整合hibernate之后，sessionFactory由spring管理，这时候必须用spring的sessionFactory或者
+	使用spring提供的hibernateTemplate，用sessionFactory不能管理事务，用hibernateTemplate能管理事务。-->
+	<!-- 配置hibernateTemplate -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<!-- 配置事务异常封装 -->
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		  class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 	<!-- 配置Hibernate事务管理器 -->
 	<bean id="tx"
@@ -112,15 +133,12 @@
 		</tx:attributes>
 	</tx:advice>
 
-	<!-- 启用对事务注解的支持 -->
-	<aop:aspectj-autoproxy />
-	<!-- Spring aop事务管理 -->
-	<!--<aop:config>
-		&lt;!&ndash; 配置切入点 &ndash;&gt;
+	<!-- Spring aop事务管理  xml配置模式-->
+	<aop:config>
+		<!-- 配置切入点 -->
 		<aop:pointcut id="transactionPointcut"
 					  expression="execution(* com.wind.service.*.*(..))"  />
-		&lt;!&ndash; 指定在txAdvice切入点应用txAdvice事务增强处理 &ndash;&gt;
+		<!-- 指定在txAdvice切入点应用txAdvice事务增强处理 -->
 		<aop:advisor pointcut-ref="transactionPointcut"    advice-ref="transactionAdvice" />
-	</aop:config>-->
-
+	</aop:config>
 </beans>
