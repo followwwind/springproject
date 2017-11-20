@@ -22,7 +22,7 @@
 	 <import resource="spring-task.xml"/>
 	 
 	 <!-- 配置Spring采用CGLIB代理 -->
-	<context:component-scan base-package="com.wind"/>
+	 <context:component-scan base-package="com.wind"/>
 	 
 	 <!-- 启用对aop注解的支持 -->
 	 <aop:aspectj-autoproxy />
