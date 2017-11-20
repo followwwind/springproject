@@ -116,7 +116,7 @@ public class UserDaoImpl implements UserDao {
      * @return
      */
     @Override
-    public User get(final String keyId) {
+    public User get(String keyId) {
         User result = redisTemplate.execute((RedisConnection conn) -> {
             RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
             byte[] key = serializer.serialize(keyId);

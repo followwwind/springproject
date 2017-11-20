@@ -1,7 +1,10 @@
 package com.wind.redis;
 
+import com.wind.dao.UserDao;
+import com.wind.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -18,6 +21,9 @@ public class RedisTest {
     // inject the template as ListOperations
     @Resource(name = "redisTemplate")
     private RedisTemplate<String, String> template;
+
+    @Autowired
+    private UserDao userDao;
 
 
     @Test
@@ -45,5 +51,11 @@ public class RedisTest {
             return conn.set(key, value);
         });
 
+    }
+
+    @Test
+    public void testAdd(){
+        User user = new User("111", "wind", "123");
+        userDao.add(user);
     }
 }
