@@ -88,16 +88,20 @@
 				</prop>
 			</props>
 		</property>
-		<!-- 扫描hibernate注解配置的entity -->
+
+		<!-- hibernate映射关系 -->
+		<!-- 1.配置具体的实体类-->
 		<!--<property name="annotatedClasses">
 			<list>
 				<value>com.wind.entity.User</value>
 			</list>
 		</property>-->
-		<!--<property name="packagesToScan" value="com.wind.entity" />-->
-		<property name="mappingLocations">
+		<!-- 2.扫描hibernate注解配置的entity -->
+		<property name="packagesToScan" value="com.wind.entity" />
+		<!-- 3.映射xml文件 -->
+		<!--<property name="mappingLocations">
 			<value>classpath:hbm/*.hbm.xml </value>
-		</property>
+		</property>-->
 	</bean>
 
 	<!-- 使用spring整合hibernate之后，sessionFactory由spring管理，这时候必须用spring的sessionFactory或者
