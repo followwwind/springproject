@@ -9,7 +9,7 @@
   <modules>
     <module>spring-web</module>
     <module>spring-data</module>
-      <module>spring-security</module>
+    <module>spring-security</module>
   </modules>
 
   <packaging>pom</packaging>

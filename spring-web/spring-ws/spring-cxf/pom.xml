@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>spring-ws</artifactId>
+        <groupId>com.wind</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>spring-cxf</artifactId>
+    <packaging>war</packaging>
+    <name>spring-cxf Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <cxf.version>3.1.5</cxf.version>
+        <jackson.version>1.9.13</jackson.version>
+    </properties>
+
+    <dependencies>
+        <!-- 添加CXF dependency  -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <!--cxf-rt-frontend-jaxws支持soap类型服务-->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <!--cxf-rt-frontend-jaxrs支持rest服务-->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <!-- 用于序列化json服务 -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!--用于跨域的jar包-->
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>java-property-utils</artifactId>
+            <version>1.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>1.7</version>
+        </dependency>
+
+        <!-- webservice客户端-->
+        <!-- 1.https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+
+        <!-- 2.https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api
+            JAX-RS Client API+cxf3.0+Proxy
+        -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-moxy</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+
+    </dependencies>
+    <build>
+        <finalName>spring-cxf</finalName>
+    </build>
+</project>
