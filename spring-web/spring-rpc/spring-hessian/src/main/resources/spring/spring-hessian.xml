@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     "
+       default-lazy-init="true">
+
+    <context:annotation-config />
+    <!-- 组件扫描,使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+    <context:component-scan base-package="com.wind.hessian" />
+
+    <!-- 自动装配 -->
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+
+    <!-- Name保持与web.xml中的一致，web.xml下文中描述 -->
+    <bean name="/helloService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <!-- service的ref与HelloServiceImpl中@Service中配置的一致 -->
+        <property name="service" ref="helloService" />
+        <!-- 接口的路径 -->
+        <property name="serviceInterface" value="com.wind.hessian.HelloService" />
+    </bean>
+
+    <!-- 客户端配置-->
+    <!--<bean id="hessianProxy" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="http://hostAddress:8080/serviceUrl" />
+        &lt;!&ndash; 接口的路径 &ndash;&gt;
+        <property name="serviceInterface" value="com.wind.hessian.HelloService" />
+    </bean>-->
+</beans>
