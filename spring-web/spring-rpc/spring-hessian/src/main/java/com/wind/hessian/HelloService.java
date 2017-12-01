@@ -1,7 +1,7 @@
 package com.wind.hessian;
 
 /**
- * @author wind
+ * @author com.wind
  */
 public interface HelloService {
     /**

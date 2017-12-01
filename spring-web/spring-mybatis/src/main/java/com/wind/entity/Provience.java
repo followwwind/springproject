@@ -3,7 +3,7 @@ package com.wind.entity;
 import java.util.List;
 /**
  * citys.xml配置文件中对应的实体类
- * @author wind
+ * @author com.wind
  *
  */
 public class Provience {

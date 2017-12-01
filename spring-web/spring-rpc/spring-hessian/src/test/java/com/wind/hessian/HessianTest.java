@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.net.MalformedURLException;
 
 /**
- * @author wind
+ * @author com.wind
  */
 public class HessianTest {
 

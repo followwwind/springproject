@@ -5,7 +5,7 @@ import com.wind.entity.User;
 import java.util.List;
 
 /**
- * @author wind
+ * @author com.wind
  */
 public interface UserDao {
 

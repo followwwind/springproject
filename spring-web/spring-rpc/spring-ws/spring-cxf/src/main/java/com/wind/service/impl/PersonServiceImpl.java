@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author wind
+ * @author com.wind
  */
-public class PersonServiceImpl implements PersonService{
+public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person getPerson(String name) {

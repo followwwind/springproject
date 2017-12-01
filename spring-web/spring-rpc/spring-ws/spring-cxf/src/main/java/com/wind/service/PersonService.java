@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
- * @author wind
+ * @author com.wind
  */
 @Produces( {MediaType.APPLICATION_JSON })
 public interface PersonService {

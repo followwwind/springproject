@@ -4,10 +4,10 @@ import com.wind.hessian.HelloService;
 import org.springframework.stereotype.Service;
 
 /**
- * @author wind
+ * @author com.wind
  */
 @Service("helloService")
-public class HelloServiceImpl implements HelloService{
+public class HelloServiceImpl implements HelloService {
 
     @Override
     public void sayHello(String name) {

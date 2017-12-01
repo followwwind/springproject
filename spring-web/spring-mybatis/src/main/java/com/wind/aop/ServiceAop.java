@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class ServiceAop {
 
-    //匹配com.wind.service包及其子包下的所有类的所有方法
+    //匹配com.com.wind.service包及其子包下的所有类的所有方法
     @Pointcut("execution(* com.wind.service..*.*(..))")
     public void executeService(){
 

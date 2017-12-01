@@ -1,9 +1,8 @@
 package com.wind.service;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import com.wind.entity.User;
 import com.wind.util.StringUtils;
 import org.junit.Test;

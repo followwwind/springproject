@@ -20,9 +20,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.apache.commons.codec.binary.Base64;
-
 import com.wind.entity.Email;
+import org.apache.commons.codec.binary.Base64;
 
 //import sun.misc.BASE64Encoder;
 

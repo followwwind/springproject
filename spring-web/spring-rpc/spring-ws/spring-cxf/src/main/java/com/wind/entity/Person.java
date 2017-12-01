@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * rest接口，实现类，实体类
- * @author wind
+ * @author com.wind
  */
 public class Person implements Serializable {
 

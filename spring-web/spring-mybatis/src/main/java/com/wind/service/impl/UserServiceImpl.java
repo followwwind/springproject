@@ -3,15 +3,16 @@ package com.wind.service.impl;
 
 
 import java.util.List;
+
+import com.wind.entity.User;
+import com.wind.service.UserService;
 import com.wind.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.wind.entity.User;
-import com.wind.service.UserService;
 
 @Service
 //@Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;

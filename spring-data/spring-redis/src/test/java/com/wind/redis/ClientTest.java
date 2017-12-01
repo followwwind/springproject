@@ -4,7 +4,7 @@ import redis.clients.jedis.Jedis;
 
 /**
  * Redis client测试
- * @author wind
+ * @author com.wind
  */
 public class ClientTest {
 

@@ -2,7 +2,7 @@ package com.wind.entity;
 
 /**
  * soap接口，实现类，实体类
- * @author wind
+ * @author com.wind
  */
 public class User {
 

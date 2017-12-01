@@ -5,7 +5,7 @@ import com.wind.entity.User;
 import javax.jws.WebService;
 
 /**
- * @author wind
+ * @author com.wind
  */
 @WebService
 public interface UserService {

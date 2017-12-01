@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author wind
+ * @author com.wind
  */
 @Controller
 @RequestMapping(value = "/user")

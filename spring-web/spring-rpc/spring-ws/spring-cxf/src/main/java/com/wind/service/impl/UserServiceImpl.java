@@ -4,9 +4,9 @@ import com.wind.entity.User;
 import com.wind.service.UserService;
 
 /**
- * @author wind
+ * @author com.wind
  */
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String name) {

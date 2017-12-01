@@ -1,9 +1,9 @@
 package com.wind.ws;
 
-import com.wind.entity.Person;
 import com.wind.entity.User;
-import com.wind.service.PersonService;
 import com.wind.service.UserService;
+import com.wind.entity.Person;
+import com.wind.service.PersonService;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -12,6 +12,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;

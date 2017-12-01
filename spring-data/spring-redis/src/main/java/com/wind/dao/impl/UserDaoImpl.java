@@ -9,9 +9,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import java.util.List;
 
 /**
- * @author wind
+ * @author com.wind
  */
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
     @Autowired
     private StringRedisTemplate redisTemplate;

@@ -21,7 +21,7 @@
 
 	 
 	 <!-- 配置Spring采用CGLIB代理 -->
-	 <context:component-scan base-package="com.wind"/>
+	 <context:component-scan base-package="com.com.wind"/>
 	 
 	 <mvc:annotation-driven>
 	 	<mvc:message-converters>
