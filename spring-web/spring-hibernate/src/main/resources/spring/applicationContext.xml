@@ -22,7 +22,7 @@
 	 <import resource="spring-task.xml"/>
 	 
 	 <!-- 配置Spring采用CGLIB代理 -->
-	 <context:component-scan base-package="com.com.wind"/>
+	 <context:component-scan base-package="com.wind"/>
 	 
 	 <mvc:annotation-driven>
 	 	<mvc:message-converters>
@@ -97,7 +97,7 @@
 			</list>
 		</property>-->
 		<!-- 2.扫描hibernate注解配置的entity -->
-		<property name="packagesToScan" value="com.com.wind.entity" />
+		<property name="packagesToScan" value="com.wind.entity" />
 		<!-- 3.映射xml文件 -->
 		<!--<property name="mappingLocations">
 			<value>classpath:hbm/*.hbm.xml </value>
@@ -141,7 +141,7 @@
 	<aop:config>
 		<!-- 配置切入点 -->
 		<aop:pointcut id="transactionPointcut"
-					  expression="execution(* com.com.wind.service.*.*(..))"  />
+					  expression="execution(* com.wind.service.*.*(..))"  />
 		<!-- 指定在txAdvice切入点应用txAdvice事务增强处理 -->
 		<aop:advisor pointcut-ref="transactionPointcut"    advice-ref="transactionAdvice" />
 	</aop:config>

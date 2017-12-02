@@ -11,7 +11,7 @@
 
     <context:annotation-config />
     <!-- 组件扫描,使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
-    <context:component-scan base-package="com.com.wind.hessian" />
+    <context:component-scan base-package="com.wind.hessian" />
 
     <!-- 自动装配 -->
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
