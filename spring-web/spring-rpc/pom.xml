@@ -15,5 +15,6 @@
     <modules>
         <module>spring-ws</module>
         <module>spring-hessian</module>
+        <module>spring-dubbo</module>
     </modules>
 </project>

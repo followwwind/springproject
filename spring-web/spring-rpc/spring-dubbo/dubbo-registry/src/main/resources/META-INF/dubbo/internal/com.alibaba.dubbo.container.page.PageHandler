@@ -1,0 +1,10 @@
+services=com.wind.dubbo.monitor.pages.ServicesPageHandler
+providers=com.wind.dubbo.monitor.pages.ProvidersPageHandler
+consumers=com.wind.dubbo.monitor.pages.ConsumersPageHandler
+statistics=com.wind.dubbo.monitor.pages.StatisticsPageHandler
+charts=com.wind.dubbo.monitor.pages.ChartsPageHandler
+applications=com.wind.dubbo.monitor.pages.ApplicationsPageHandler
+dependencies=com.wind.dubbo.monitor.pages.DependenciesPageHandler
+hosts=com.wind.dubbo.monitor.pages.HostsPageHandler
+unregister=com.wind.dubbo.monitor.pages.UnregisterPageHandler
+unsubscribe=com.wind.dubbo.monitor.pages.UnsubscribePageHandler
