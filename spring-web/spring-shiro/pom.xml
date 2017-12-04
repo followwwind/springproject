@@ -31,7 +31,7 @@
         <jdk.version>1.8</jdk.version>
         <tomcat.version>2.2</tomcat.version>
         <jetty.version>6.1.9</jetty.version>
-        <webserver.name></webserver.name>
+        <webserver.name> </webserver.name>
         <webserver.port>8181</webserver.port>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
