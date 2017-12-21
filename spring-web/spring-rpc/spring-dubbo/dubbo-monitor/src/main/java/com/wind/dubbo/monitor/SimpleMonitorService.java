@@ -23,6 +23,7 @@ import com.alibaba.dubbo.common.utils.ConfigUtils;
 import com.alibaba.dubbo.common.utils.NamedThreadFactory;
 import com.alibaba.dubbo.common.utils.NetUtils;
 import com.alibaba.dubbo.monitor.MonitorService;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
@@ -30,6 +31,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -97,6 +99,7 @@ public class SimpleMonitorService implements MonitorService {
         writeThread.setName("DubboMonitorAsyncWriteLogThread");
         writeThread.start();
         chartFuture = scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
+            @Override
             public void run() {
                 try {
                     draw(); // 绘制图表

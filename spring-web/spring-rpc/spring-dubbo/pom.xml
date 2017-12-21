@@ -14,6 +14,7 @@
     <modules>
         <module>dubbo-simple</module>
         <module>dubbo-registry</module>
+        <module>dubbo-monitor</module>
     </modules>
 
     <properties>

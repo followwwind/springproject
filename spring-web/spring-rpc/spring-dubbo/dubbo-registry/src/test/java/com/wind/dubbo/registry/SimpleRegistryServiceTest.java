@@ -15,13 +15,12 @@
  */
 package com.wind.dubbo.registry;
 
-import com.wind.dubbo.registry.SimpleRegistryService;
 import org.junit.Test;
 
 /**
  * SimpleRegistryServiceTest
  *
- * @author william.liangf
+ * @author wind
  */
 public class SimpleRegistryServiceTest {
 

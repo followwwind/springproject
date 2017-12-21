@@ -18,26 +18,23 @@ package com.wind.dubbo.monitor.pages;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.container.page.Page;
 import com.alibaba.dubbo.container.page.PageHandler;
-import com.alibaba.dubbo.registry.NotifyListener;
 import com.wind.dubbo.monitor.RegistryContainer;
 
-import java.util.List;
-
 /**
- * UnsubscribePageHandler
+ * UnregisterPageHandler
  *
  * @author william.liangf
  */
-public class UnsubscribePageHandler implements PageHandler {
+public class UnregisterPageHandler implements PageHandler {
 
     @Override
     public Page handle(URL url) {
-        String consumer = url.getParameterAndDecoded("consumer");
-        if (consumer == null || consumer.length() == 0) {
-            throw new IllegalArgumentException("Please input consumer parameter.");
+        String provider = url.getParameterAndDecoded("provider");
+        if (provider == null || provider.length() == 0) {
+            throw new IllegalArgumentException("Please input provider parameter.");
         }
-        URL consumerUrl = URL.valueOf(consumer);
-        RegistryContainer.getInstance().getRegistry().unsubscribe(consumerUrl, NotifyListenerAdapter.NOTIFY_LISTENER);
+        URL providerUrl = URL.valueOf(provider);
+        RegistryContainer.getInstance().getRegistry().unregister(providerUrl);
         String parameter;
         if (url.hasParameter("service")) {
             parameter = "service=" + url.getParameter("service");
@@ -46,22 +43,9 @@ public class UnsubscribePageHandler implements PageHandler {
         } else if (url.hasParameter("application")) {
             parameter = "application=" + url.getParameter("application");
         } else {
-            parameter = "service=" + consumerUrl.getServiceInterface();
+            parameter = "service=" + providerUrl.getServiceInterface();
         }
-        return new Page("<script type=\"text/javascript\">window.location.href=\"consumers.html?" + parameter + "\";</script>");
-    }
-
-    private static class NotifyListenerAdapter implements NotifyListener {
-
-        public static final NotifyListener NOTIFY_LISTENER = new NotifyListenerAdapter();
-
-        private NotifyListenerAdapter() {
-        }
-
-        @Override
-        public void notify(List<URL> urls) {
-        }
-
+        return new Page("<script type=\"text/javascript\">window.location.href=\"providers.html?" + parameter + "\";</script>");
     }
 
 }

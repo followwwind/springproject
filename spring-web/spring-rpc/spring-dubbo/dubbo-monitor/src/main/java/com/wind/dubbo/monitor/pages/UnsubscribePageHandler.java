@@ -19,23 +19,25 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.container.page.Page;
 import com.alibaba.dubbo.container.page.PageHandler;
 import com.wind.dubbo.monitor.RegistryContainer;
+import com.alibaba.dubbo.registry.NotifyListener;
 
+import java.util.List;
 
 /**
- * UnregisterPageHandler
+ * UnsubscribePageHandler
  *
  * @author william.liangf
  */
-public class UnregisterPageHandler implements PageHandler {
+public class UnsubscribePageHandler implements PageHandler {
 
     @Override
     public Page handle(URL url) {
-        String provider = url.getParameterAndDecoded("provider");
-        if (provider == null || provider.length() == 0) {
-            throw new IllegalArgumentException("Please input provider parameter.");
+        String consumer = url.getParameterAndDecoded("consumer");
+        if (consumer == null || consumer.length() == 0) {
+            throw new IllegalArgumentException("Please input consumer parameter.");
         }
-        URL providerUrl = URL.valueOf(provider);
-        RegistryContainer.getInstance().getRegistry().unregister(providerUrl);
+        URL consumerUrl = URL.valueOf(consumer);
+        RegistryContainer.getInstance().getRegistry().unsubscribe(consumerUrl, NotifyListenerAdapter.NOTIFY_LISTENER);
         String parameter;
         if (url.hasParameter("service")) {
             parameter = "service=" + url.getParameter("service");
@@ -44,9 +46,22 @@ public class UnregisterPageHandler implements PageHandler {
         } else if (url.hasParameter("application")) {
             parameter = "application=" + url.getParameter("application");
         } else {
-            parameter = "service=" + providerUrl.getServiceInterface();
+            parameter = "service=" + consumerUrl.getServiceInterface();
         }
-        return new Page("<script type=\"text/javascript\">window.location.href=\"providers.html?" + parameter + "\";</script>");
+        return new Page("<script type=\"text/javascript\">window.location.href=\"consumers.html?" + parameter + "\";</script>");
+    }
+
+    private static class NotifyListenerAdapter implements NotifyListener {
+
+        public static final NotifyListener NOTIFY_LISTENER = new NotifyListenerAdapter();
+
+        private NotifyListenerAdapter() {
+        }
+
+        @Override
+        public void notify(List<URL> urls) {
+        }
+
     }
 
 }

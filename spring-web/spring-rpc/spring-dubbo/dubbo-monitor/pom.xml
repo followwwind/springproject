@@ -9,9 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dubbo-registry</artifactId>
-    <packaging>jar</packaging>
-
+    <artifactId>dubbo-monitor</artifactId>
 
     <properties>
         <dubbo.version>2.5.7</dubbo.version>
@@ -28,7 +26,26 @@
             <artifactId>jetty</artifactId>
             <version>6.1.9</version>
         </dependency>
+
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
     </dependencies>
+
+
 
     <build>
         <plugins>

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wind.dubbo.monitor;
+package com.alibaba.dubbo.monitor.simple;
 
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.utils.NetUtils;
-
+import com.wind.dubbo.monitor.SimpleMonitorService;
 import org.junit.Test;
 
 /**
