@@ -43,6 +43,11 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
+  <!--<servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/v2/api-docs</url-pattern>
+  </servlet-mapping>-->
+
   <!-- servlet直接处理静态文件 -->
   <servlet-mapping>
     <servlet-name>default</servlet-name>

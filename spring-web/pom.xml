@@ -25,7 +25,8 @@
         <spring.version>4.3.11.RELEASE</spring.version>
         <!--<spring.version>5.0.2.RELEASE</spring.version>-->
         <junit.version>4.12</junit.version>
-        <jackson.version>2.2.3</jackson.version>
+        <!--<jackson.version>2.2.3</jackson.version>-->
+        <jackson.version>2.5.3</jackson.version>
     </properties>
 
     <dependencies>

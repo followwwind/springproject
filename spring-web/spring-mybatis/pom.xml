@@ -17,6 +17,7 @@
         <mybatis-spring.version>1.2.3</mybatis-spring.version>
         <log4j2.version>2.1</log4j2.version>
         <jetty.version>6.1.9</jetty.version>
+        <swagger.version>2.6.1</swagger.version>
     </properties>
 
     <dependencies>
@@ -69,6 +70,18 @@
             <version>1.2.3</version>
         </dependency>
 
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
         <!-- AOP begin -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -107,12 +120,6 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.9</version>
         </dependency>
-        <!-- javax.mail -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
     </dependencies>
     <build>
         <finalName>spring-mybatis</finalName>
@@ -144,11 +151,12 @@
                 <version>${jetty.version}</version>
                 <configuration>
                     <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                     <contextPath>/sm</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <connectors>
                         <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                            <port>8181</port>
+                            <port>8080</port>
                             <maxIdleTime>30000</maxIdleTime>
                         </connector>
                     </connectors>
