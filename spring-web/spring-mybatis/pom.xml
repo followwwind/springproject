@@ -151,7 +151,6 @@
                 <version>${jetty.version}</version>
                 <configuration>
                     <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
-                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                     <contextPath>/sm</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <connectors>
