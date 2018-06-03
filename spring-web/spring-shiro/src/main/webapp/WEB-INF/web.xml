@@ -23,8 +23,13 @@
          version="3.1">
 
     <!-- ===================================================================
- -  Context parameters
- -  =================================================================== -->
+     -  Welcome file list
+     -  =================================================================== -->
+   <welcome-file-list>
+       <welcome-file>index.html</welcome-file>
+   </welcome-file-list>
+
+    <!-- Context ConfigLocation -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:/spring-context*.xml</param-value>
@@ -33,6 +38,10 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
+    <!--<listener>
+        <listener-class>org.springframework.util.context.request.RequestContextListener</listener-class>
+    </listener>-->
 
     <filter>
         <filter-name>encodingFilter</filter-name>
@@ -51,62 +60,37 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- ===================================================================
- -  Filters
- -  =================================================================== -->
-    <filter>
-        <filter-name>openSessionInViewFilter</filter-name>
-        <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
-    </filter>
 
-    <filter-mapping>
-        <filter-name>openSessionInViewFilter</filter-name>
-        <url-pattern>/s/*</url-pattern>
-    </filter-mapping>
-
-    <!-- Shiro Filter is defined in the spring application context: -->
+    <!-- Apache Shiro -->
     <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
     </filter>
-
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
-        <url-pattern>/s/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- ===================================================================
- -  Servlets
- -  =================================================================== -->
+    <!-- MVC Servlet -->
     <servlet>
-        <servlet-name>sprhib</servlet-name>
+        <servlet-name>springServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath*:/spring-mvc.xml</param-value>
+            <param-value>classpath*:/spring-mvc*.xml
+            </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
-        <servlet-name>sprhib</servlet-name>
-        <url-pattern>/s/*</url-pattern>
+        <servlet-name>springServlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 
-    <!-- ===================================================================
-     -  Welcome file list
-     -  =================================================================== -->
-   <welcome-file-list>
-       <welcome-file>index.jsp</welcome-file>
-   </welcome-file-list>
 
-    <error-page>
-        <error-code>401</error-code>
-        <location>/unauthorized.jsp</location>
-    </error-page>
-
-    <session-config>
-        <tracking-mode>COOKIE</tracking-mode>
-    </session-config>
 </web-app>

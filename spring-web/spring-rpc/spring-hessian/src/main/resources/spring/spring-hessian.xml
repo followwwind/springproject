@@ -17,7 +17,7 @@
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 
 
-    <!-- Name保持与web.xml中的一致，web.xml下文中描述 -->
+    <!-- Name保持与web.xml中的一致，util.xml下文中描述 -->
     <bean name="/helloService" class="org.springframework.remoting.caucho.HessianServiceExporter">
         <!-- service的ref与HelloServiceImpl中@Service中配置的一致 -->
         <property name="service" ref="helloService" />

@@ -18,43 +18,36 @@ public interface BaseMapper<R, PK> {
 
     /**
      * 通过id删除记录
-     * @param id
-     * @return
-     */
-    int deleteById(PK id);
-
-    /**
-     * 批量删除记录
      * @param r
      * @return
      */
-    int deleteByCondition(R r);
+    int delete(R r);
 
     /**
      * 通过id查询单条记录
      * @param id
      * @return
      */
-    R findById(PK id);
+    R findEntity(PK id);
 
     /**
      * 条件批量查询记录
      * @param r
      * @return
      */
-    List<R> findByCondition(R r);
+    List<R> findList(R r);
 
     /**
      * 通过id更新记录
      * @param r
      * @return
      */
-    int updateByCondition(R r);
+    int update(R r);
 
     /**
      * 查询批量记录条数
      * @param r
      * @return
      */
-    int countByCondition(R r);
+    int count(R r);
 }

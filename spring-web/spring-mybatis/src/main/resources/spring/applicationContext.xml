@@ -27,18 +27,6 @@
 	 <!-- 启用对aop注解的支持 -->
 	 <aop:aspectj-autoproxy />
 	 
-	 <mvc:annotation-driven>
-	 	<mvc:message-converters>
-	 		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-	 			<property name="supportedMediaTypes">
-	 				<list>
-	 					<value>application/json;charset=UTF-8</value>
-	 				</list>
-	 			</property>
-	 		</bean>
-	 	</mvc:message-converters>
-	 </mvc:annotation-driven>
-	 
 	 <!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->
 	 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
 		 <property name="locations"> 

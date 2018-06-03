@@ -71,7 +71,7 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
-  <!-- Add on a servlet to handle web service request -->
+  <!-- Add on a servlet to handle util service request -->
   <servlet>
     <servlet-name>cxf</servlet-name>
     <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>

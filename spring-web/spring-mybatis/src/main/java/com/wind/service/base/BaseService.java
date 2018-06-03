@@ -19,17 +19,17 @@ public interface BaseService<R, PK> {
 
     /**
      * 删除记录
-     * @param id
+     * @param r
      * @return
      */
-    int deleteByCondition(R r);
+    int delete(R r);
 
     /**
      * 查询单条记录
      * @param id
      * @return
      */
-    R findEntity(R r);
+    R findEntity(PK id);
 
 
     /**
@@ -37,7 +37,7 @@ public interface BaseService<R, PK> {
      * @param r
      * @return
      */
-    List<R> findByCondition(R r);
+    List<R> findList(R r);
 
     /**
      * 分页查询
@@ -51,12 +51,12 @@ public interface BaseService<R, PK> {
      * @param r
      * @return
      */
-    int updateByCondition(R r);
+    int update(R r);
 
     /**
      * 条件查询记录条数
      * @param r
      * @return
      */
-    int countByCondition(R r);
+    int count(R r);
 }

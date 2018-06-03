@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spring-shiro</artifactId>
     <packaging>war</packaging>
-    <name>spring-shiro Maven Webapp</name>
+    <name>spring-shiro</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -31,7 +31,7 @@
         <jdk.version>1.8</jdk.version>
         <tomcat.version>2.2</tomcat.version>
         <jetty.version>6.1.9</jetty.version>
-        <webserver.name> </webserver.name>
+        <webserver.name>/</webserver.name>
         <webserver.port>8181</webserver.port>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -195,7 +195,7 @@
                 <version>${tomcat.version}</version>
                 <configuration>
                     <port>${webserver.port}</port>
-                    <path>/${webserver.name}</path>
+                    <path>${webserver.name}</path>
                     <uriEncoding>${project.build.sourceEncoding}</uriEncoding>
                 </configuration>
             </plugin>
@@ -207,7 +207,7 @@
                 <version>${tomcat.version}</version>
                 <configuration>
                     <port>${webserver.port}</port>
-                    <path>/${webserver.name}</path>
+                    <path>${webserver.name}</path>
                     <uriEncoding>${project.build.sourceEncoding}</uriEncoding>
                 </configuration>
             </plugin>
@@ -219,7 +219,7 @@
                 <version>${jetty.version}</version>
                 <configuration>
                     <webAppSourceDirectory>${project.basedir}/webapp</webAppSourceDirectory>
-                    <contextPath>/${webserver.name}</contextPath>
+                    <contextPath>${webserver.name}</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <connectors>
                         <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">

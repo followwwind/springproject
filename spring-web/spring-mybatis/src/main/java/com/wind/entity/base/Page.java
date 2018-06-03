@@ -38,19 +38,15 @@ public class Page {
     }
 
     public int getPageNumber() {
+        //不传或者传1都是从0开始查询
+        if(pageNumber <= 1) {
+            return 1;
+        }
         return pageNumber;
     }
 
     public void setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
-    }
-
-    public int getStartRow() {
-        //不传或者传1都是从0开始查询
-        if(pageNumber <= 1) {
-            return 0;
-        }
-        return (pageNumber - 1) * lineNumber;
     }
 
     public int getLineNumber() {

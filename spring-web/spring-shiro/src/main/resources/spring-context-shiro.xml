@@ -1,73 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.1.xsd"
+       default-lazy-init="true">
 
-    <!-- Shiro's main business-tier object for web-enabled applications
-         (use org.apache.shiro.web.mgt.DefaultWebSecurityManager instead when there is no web environment)-->
-    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <!-- Single realm app (realm configured next, below).  If you have multiple realms, use the 'realms'
-      property instead. -->
-        <property name="realm" ref="sampleRealm"/>
-        <!--<property name="sessionManager" ref="sessionManager"/>-->
-        <property name="cacheManager" ref="memoryConstrainedCacheManager" />
+    <!-- 指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 等默认JSESSIONID,
+		当跳出SHIRO SERVLET时如ERROR-PAGE容器会为JSESSIONID重新分配值导致登录会话丢失! -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg name="name" value="shiro.session.id"/>
     </bean>
 
-    <!-- 用户授权信息Cache（本机内存实现） -->
-    <bean id="memoryConstrainedCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
 
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    <!-- 自定义Session存储容器 -->
+    <!-- 	<bean id="sessionDAO" class="com.wind.security.shiro.session.JedisSessionDAO"> -->
+    <!-- 		<property name="sessionIdGenerator" ref="sessionIdGen" /> -->
+    <!-- 		<property name="sessionKeyPrefix" value="shiro_session_" /> -->
+    <!-- 	</bean> -->
+    <bean id="sessionDAO" class="com.wind.security.shiro.session.CacheSessionDAOImpl">
+        <property name="sessionIdGenerator" ref="sessionIdGen" />
+        <property name="activeSessionsCacheName" value="activeSessionsCache" />
+        <property name="cacheManager" ref="shiroCacheManager" />
+    </bean>
 
+    <!-- 自定义会话管理配置 -->
+    <bean id="sessionManager" class="com.wind.security.shiro.session.SessionManager">
+        <property name="sessionDAO" ref="sessionDAO"/>
 
         <!-- 会话超时时间，单位：毫秒  -->
-        <property name="globalSessionTimeout" value="60000"/>
+        <property name="globalSessionTimeout" value="1000"/>
 
         <!-- 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话   -->
-        <property name="sessionValidationInterval" value="120000"/>
+        <property name="sessionValidationInterval" value="1000"/>
+        <!--  		<property name="sessionValidationSchedulerEnabled" value="false"/> -->
         <property name="sessionValidationSchedulerEnabled" value="true"/>
 
-        <!--<property name="sessionIdCookie" ref="sessionIdCookie"/>
-        <property name="sessionIdCookieEnabled" value="true"/>-->
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
     </bean>
 
-    <!-- Post processor that automatically invokes init() and destroy() methods -->
+    <!-- 自定义系统缓存管理器-->
+    <!--<bean id="shiroCacheManager" class="com.thinkgem.jeesite.common.security.security.cache.JedisCacheManager">
+        <property name="cacheKeyPrefix" value="${redis.keyPrefix}_cache_" />
+    </bean> -->
+    <!--<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>-->
+
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+
+    <!-- 項目自定义的Realm -->
+    <bean id="formRealm" class="com.wind.security.shiro.realm.FormAuthorizingRealm">
+        <property name="cacheManager" ref="shiroCacheManager" />
+    </bean>
+
+    <!-- Shiro's main business-tier object for util-enabled applications -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="formRealm" />
+        <property name="cacheManager" ref="shiroCacheManager" />
+    </bean>
+
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
-    <!-- Define the Shiro Filter here (as a FactoryBean) instead of directly in web.xml -
-         web.xml uses the DelegatingFilterProxy to access this bean.  This allows us
-         to wire things with more control as well utilize nice Spring things such as
-         PropertiesPlaceholderConfigurer and abstract beans or anything else we might need: -->
-    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <!-- AOP式方法级权限检查  -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true" />
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/s/login"/>
-        <property name="successUrl" value="/s/home"/>
-        <property name="unauthorizedUrl" value="/unauthorized"/>
-        <!-- The 'filters' property is usually not necessary unless performing an override, which we
-             want to do here (make authc point to a PassthruAuthenticationFilter instead of the
-             default FormAuthenticationFilter: -->
-        <property name="filters">
-            <util:map>
-                <entry key="authc">
-                    <bean class="org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter"/>
-                </entry>
-            </util:map>
-        </property>
-        <property name="filterChainDefinitions">
+    </bean>
+
+    <!-- Shiro权限过滤过滤器定义 -->
+    <bean name="shiroFilterChainDefinitions" class="java.lang.String">
+        <constructor-arg>
             <value>
-                /s/signup = anon
-                /s/manageUsers = perms[user:manage]
-                /s/** = authc
+                /index.html = anon
+                /user/login = anon
+                /hi/sayHi = anon
+                /** = authc
             </value>
+        </constructor-arg>
+    </bean>
+
+    <!-- Shiro Filter -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" />
+        <!--<property name="loginUrl" value="/login.html" />
+        <property name="successUrl" value="/success.html" />
+        <property name="unauthorizedUrl" value="/error.html" />-->
+        <!--<property name="filters">
+            <map>
+                <entry key="cas" value-ref="casFilter"/>
+                <entry key="authc" value-ref="formAuthenticationFilter"/>
+            </map>
+        </property>-->
+        <property name="filterChainDefinitions">
+            <ref bean="shiroFilterChainDefinitions"/>
         </property>
     </bean>
+
 
 </beans>
