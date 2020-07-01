@@ -21,7 +21,7 @@
         <activiti.version>5.21.0</activiti.version>
 
         <!-- tools version setting -->
-        <log4j.version>2.1</log4j.version>
+        <log4j.version>2.13.3</log4j.version>
 
         <!-- jdbc driver setting -->
         <mysql.driver.version>5.1.35</mysql.driver.version>
