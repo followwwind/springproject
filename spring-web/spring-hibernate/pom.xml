@@ -14,7 +14,7 @@
     <properties>
         <!-- main version setting -->
         <log4j2.version>2.1</log4j2.version>
-        <hibernate.version>5.0.8.Final</hibernate.version>
+        <hibernate.version>5.4.24.Final</hibernate.version>
         <jetty.version>6.1.9</jetty.version>
     </properties>
 
