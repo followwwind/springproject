@@ -12,7 +12,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <cxf.version>3.1.5</cxf.version>
+        <cxf.version>3.4.10</cxf.version>
     </properties>
 
     <dependencies>
